@@ -22,13 +22,12 @@ async def send_message_if_tickets_available(bot: Bot, chat_id: int, doctor: Doct
     for i in respons:
         if doctor.family == i.family:
             if i.count_tickets > 0:
-                await bot.send_message(chat_id, f"У доктора появились билеты!")
+                await bot.send_message(chat_id, f"У доктора {i.family} появились билеты!")
                 break
 
 
 
 async def send_message_if_free_day(bot: Bot, chat_id: int, doctor: Doctor, free_day: str, lpu_code: str, deport: str):
-    await bot.send_message(chat_id, f"Ищу дату")
     last_free_day = datetime.strptime(free_day, '%d.%m.%Y')
     respons = get_requests_clinic(lpu_code=lpu_code, deport=deport)
     for i in respons:
@@ -37,7 +36,7 @@ async def send_message_if_free_day(bot: Bot, chat_id: int, doctor: Doctor, free_
             new_day = datetime.strptime(new_day, '%d.%m.%Y')
             if new_day < last_free_day:
                 await bot.send_message(chat_id, f"У {i.family} - появился билет на более ближнюю дату!")
-            else:
-                await bot.send_message(chat_id, f"У {i.family} - ближайшая дата не изменилась")
+            # else:
+            #     await bot.send_message(chat_id, f"У {i.family} - ближайшая дата не изменилась")
             break
 

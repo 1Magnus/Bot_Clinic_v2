@@ -67,7 +67,7 @@ async def zero_tickets(message: Message, bot: Bot, state: FSMContext, apschedule
         context_data = await state.get_data()
         lpu_code = context_data['lpu_code']
         deport = context_data['deport']
-        apscheduler.add_job(send_message_if_tickets_available, trigger='interval', minutes=60,
+        apscheduler.add_job(send_message_if_tickets_available, trigger='interval', hours=1,
                             kwargs={'bot': bot, 'chat_id': message.from_user.id,
                                     'need_doctor': context_data['nedd_doctor'], 'lpu_code': lpu_code, 'deport': deport})
     await state.clear()
@@ -80,7 +80,7 @@ async def get_free_day(message: Message, bot: Bot, state: FSMContext, apschedule
         free_day = nedd_doctor.first_day_tickets
         lpu_code = context_data['lpu_code']
         deport = context_data['deport']
-        apscheduler.add_job(send_message_if_free_day, trigger='interval', seconds=120,
+        apscheduler.add_job(send_message_if_free_day, trigger='interval', hours=1,
                             kwargs={'bot': bot, 'chat_id': message.from_user.id,
                                     'doctor': nedd_doctor, 'free_day': free_day, 'lpu_code': lpu_code,
                                     'deport': deport})
