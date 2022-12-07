@@ -65,7 +65,6 @@ async def start():
 
     # dp.callback_query.register(select_macbook, MacInfo.filter())
 
-    # dp.message.register(get_location, F.location)
 
     dp.message.register(get_start, Command(commands=['start', 'run']))
     dp.message.register(get_hello, F.text == 'привет')
